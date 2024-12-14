@@ -28,7 +28,7 @@ public class Product  {
     }
 
     // 생성 메서드(초기값 0, OUT_OF_STOCK)
-    public static Product createProduct(){
+    public static Product create(){
         return new Product(0, StockStatus.OUT_OF_STOCK);
     }
 

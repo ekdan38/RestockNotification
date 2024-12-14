@@ -29,7 +29,7 @@ public class ProductUserNotification extends TimeEntity {
     }
 
     // 생성 메서드
-    public static ProductUserNotification createProductUserNotification(Product product, Long userId, Boolean isActive){
+    public static ProductUserNotification create(Product product, Long userId, Boolean isActive){
         return new ProductUserNotification(product, userId, isActive);
     }
 }

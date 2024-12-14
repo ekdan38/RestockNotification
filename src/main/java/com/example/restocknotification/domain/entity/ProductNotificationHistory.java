@@ -35,7 +35,7 @@ public class ProductNotificationHistory {
     }
 
     // 생성 메서드
-    public static ProductNotificationHistory createProductNotificationHistory(Product product, Integer stockRound, StockStatus stockStatus, Long userId){
+    public static ProductNotificationHistory create(Product product, Integer stockRound, StockStatus stockStatus, Long userId){
         return new ProductNotificationHistory(product, stockRound, stockStatus, userId);
     }
 }
