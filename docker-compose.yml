@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: restock_mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: restocknotification
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - restock-network
+
+  app:
+    build:
+      context: .
+    container_name: restocknotification_container
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/restocknotification
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - db
+    networks:
+      - restock-network
+
+volumes:
+  db-data:
+
+networks:
+  restock-network:
