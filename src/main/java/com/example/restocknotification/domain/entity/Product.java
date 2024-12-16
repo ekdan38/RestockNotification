@@ -3,13 +3,16 @@ package com.example.restocknotification.domain.entity;
 import com.example.restocknotification.domain.entity.status.StockStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Product  {
+@Getter
+public class Product {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     // 재입고 회차
@@ -28,9 +31,17 @@ public class Product  {
     }
 
     // 생성 메서드(초기값 0, OUT_OF_STOCK)
-    public static Product create(){
+    public static Product create() {
         return new Product(0, StockStatus.OUT_OF_STOCK);
     }
 
+    // 상품 상태 처리
+    public void updateStockStatus(StockStatus status) {
+        this.stockStatus = status;
+    }
 
+    public int increaseRestockRound(){
+        this.restockRound++;
+        return this.restockRound;
+    }
 }
