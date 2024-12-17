@@ -1,8 +1,10 @@
 package com.example.restocknotification.web.controller;
 
+import com.example.restocknotification.domain.service.ProductNotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,11 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j(topic = "[ProductNotificationController]")
 public class ProductNotificationController {
 
+    private final ProductNotificationService productNotificationService;
+
     // 해당 경로 요청 => 재입고 회차 + 1 시키고, 알림 전송하는 엔드포인트
     @PostMapping("/products/{productId}/notifications/re-stock")
-    public ResponseEntity<?> reStockNotifications(){
-        // 알림이 정상적으로 처리되지 않는건.. 그냥 여기서 처리하자
+    public ResponseEntity<?> reStockNotifications(@PathVariable("productId") Long productId) throws InterruptedException {
 
+        productNotificationService.sendNotification(productId);
         return ResponseEntity.ok().build();
     }
 
