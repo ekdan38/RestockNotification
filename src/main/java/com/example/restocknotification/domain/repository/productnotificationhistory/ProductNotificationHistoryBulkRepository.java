@@ -26,10 +26,7 @@ public class ProductNotificationHistoryBulkRepository {
                 ps.setLong(1, value.getProduct().getId());
                 ps.setInt(2, value.getStockRound());
                 ps.setString(3, value.getNotificationStatus().name());
-
-                // userId null 처리
-                if(value.getUserId() != null) ps.setLong(4, value.getUserId());
-                else ps.setLong(4, 1L);
+                ps.setLong(4, value.getUserId());
             }
 
             @Override
