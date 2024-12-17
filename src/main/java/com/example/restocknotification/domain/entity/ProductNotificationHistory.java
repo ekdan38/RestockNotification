@@ -27,7 +27,6 @@ public class ProductNotificationHistory {
     private RestockNotificationStatus notificationStatus;
 
     // 마지막 발송 유저 아이디
-    @Column(nullable = false)
     private Long userId;
 
     private ProductNotificationHistory(Product product, Integer stockRound, RestockNotificationStatus notificationStatus, Long userId) {
@@ -42,7 +41,13 @@ public class ProductNotificationHistory {
         return new ProductNotificationHistory(product, stockRound, notificationStatus, userId);
     }
 
+    // status 수정 메서드
     public void updateNotificationStatus(RestockNotificationStatus status){
         this.notificationStatus = status;
+    }
+
+    // userId 수정 메서드
+    public void updateUserId(Long userId){
+        this.userId = userId;
     }
 }
