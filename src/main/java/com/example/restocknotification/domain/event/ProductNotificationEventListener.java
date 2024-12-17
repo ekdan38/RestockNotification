@@ -1,7 +1,5 @@
 package com.example.restocknotification.domain.event;
 
-import com.example.restocknotification.domain.service.ProductNotificationService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +9,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component
 public class ProductNotificationEventListener {
-    // 해당 상품이 out_of_stock 인지 메모리에 저장?
-    // 스레드에서도 안전해야한다. => 해당 상품이 재고가 있는지 없는지 boolean으로 관리하자. => AtomicBoolean 사용
-    // Atomic 변수는 멀티 스레드 환경에서 동시성 보장
-    // 상품마다 AtomicBoolean을 관리해야한다. map 사용 => 동시성 고려해서 ConcurrentHashMap 사용
+    // 상품의 상태를 다른 스레드에서 api호출을 통해 변경한다고 가정
+    // 상품의 상태를 매번 DB에서 가져올 수 없다.
+    // Atomic 변수는 다른 스레드에서 변경해도 값이 공유되기에 상품에 대한 상태 변경 감지 가능
+    // 상품마다 AtomicBoolean을 관리해야한다. => 동시성 고려해서 ConcurrentHashMap 사용
 
     private final Map<Long, AtomicBoolean> productStateMap = new ConcurrentHashMap<>();
 
