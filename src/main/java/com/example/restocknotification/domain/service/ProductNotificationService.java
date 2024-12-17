@@ -89,6 +89,7 @@ public class ProductNotificationService {
             }
 
         }
+        eventListener.removeProductState(productId);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
